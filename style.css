@@ -1,0 +1,504 @@
+:root {
+    --bg-color: #f3f4f6;
+    --card-bg: #ffffff;
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --text-main: #1f2937;
+    --text-muted: #6b7280;
+    --border-color: #d1d5db;
+    --radius: 8px;
+}
+
+[data-theme="dark"] {
+    --bg-color: #0f172a;
+    --card-bg: #1e293b;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border-color: #334155;
+    --primary: #3b82f6;
+    color-scheme: dark;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    transition: 0.3s;
+    line-height: 1.5;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+/* Dashboard Header */
+#dashboard {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+
+.dash-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.dash-header-top h2 {
+    margin: 0;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.goal-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 15px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.motivational-area h3 {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+    color: var(--primary);
+}
+
+.streak-text {
+    margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+    color: #f59e0b;
+}
+
+.progress-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.edit-inputs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+progress {
+    width: 200px;
+    height: 15px;
+    border-radius: 10px;
+}
+
+progress::-webkit-progress-bar {
+    background-color: var(--border-color);
+    border-radius: 10px;
+}
+
+progress::-webkit-progress-value {
+    background-color: var(--primary);
+    border-radius: 10px;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 25px 0;
+}
+
+/* Insights Panel */
+.insights-content {
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    margin-top: 20px;
+}
+
+.insights-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.insight-stats {
+    display: flex;
+    gap: 15px;
+}
+
+.stat-badge {
+    background: var(--bg-color);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid var(--border-color);
+}
+
+.chart-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.charts-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 20px;
+}
+.chart-wrapper {
+    flex: 1 1 30%;
+    min-width: 250px;
+    max-width: 350px;
+    aspect-ratio: 2/1;
+}
+.row-action-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 16px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: 0.2s;
+}
+.row-action-btn:hover {
+    color: var(--primary);
+    background: var(--bg-color);
+}
+
+/* Main Split Layout */
+.main-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.form-panel {
+    flex: 1 1 350px;
+    min-width: 300px;
+    max-width: 400px;
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+}
+
+.history-panel {
+    flex: 2 1 600px;
+    min-width: 300px;
+    width: 100%;
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+    min-height: 80vh;
+}
+
+/* Forms & Inputs */
+.compact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.row-group {
+    flex-direction: row;
+    align-items: center;
+}
+
+.row-group input,
+.row-group select,
+.row-group button {
+    flex: 1;
+}
+
+input,
+select,
+textarea {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 14px;
+    background: var(--card-bg);
+    color: var(--text-main);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+/* Buttons */
+button {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+button:hover {
+    background-color: var(--primary-hover);
+}
+
+.icon-btn {
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 20px;
+    padding: 5px 10px;
+}
+
+.icon-btn:hover {
+    background: transparent;
+    color: var(--primary);
+}
+
+.action-btn {
+    flex: 0 0 40px !important;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-success {
+    background-color: #10b981;
+}
+
+/* Status Buttons */
+.status-container {
+    flex-direction: row;
+    gap: 10px;
+}
+
+.status-container label {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s;
+    background: var(--card-bg);
+}
+
+.status-container input {
+    display: none;
+}
+
+.status-container .emoji {
+    font-size: 18px;
+}
+
+.status-container .status-txt {
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.status-container input[value="red"]:checked+label {
+    border-color: #ef4444;
+    background-color: #fef2f2;
+    color: #b91c1c;
+}
+
+.status-container input[value="yellow"]:checked+label {
+    border-color: #f59e0b;
+    background-color: #fffbeb;
+    color: #b45309;
+}
+
+.status-container input[value="green"]:checked+label {
+    border-color: #10b981;
+    background-color: #ecfdf5;
+    color: #047857;
+}
+
+[data-theme="dark"] .status-container input[value="red"]:checked+label {
+    background-color: #450a0a;
+}
+
+[data-theme="dark"] .status-container input[value="yellow"]:checked+label {
+    background-color: #451a03;
+}
+
+[data-theme="dark"] .status-container input[value="green"]:checked+label {
+    background-color: #064e3b;
+}
+
+/* Tags */
+.tags-wrapper {
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 5px;
+    background: var(--card-bg);
+}
+
+.selected-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.tag-pill {
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.tag-pill .remove-tag {
+    cursor: pointer;
+    color: #ef4444;
+}
+
+#tag-dropdown {
+    border: none;
+    width: 100%;
+    padding: 5px;
+}
+
+/* Table */
+.table-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.table-controls input,
+.table-controls select {
+    flex: 1;
+    min-width: 150px;
+}
+
+.table-container {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    text-align: left;
+}
+
+thead th {
+    background-color: var(--bg-color);
+    padding: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 1px solid var(--border-color);
+}
+
+tbody td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.main-row {
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.main-row:hover {
+    background-color: var(--bg-color);
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* Edit Btn in Table */
+.edit-prob-btn {
+    background: var(--primary);
+    padding: 6px 12px;
+    font-size: 12px;
+    margin-bottom: 10px;
+    width: max-content;
+}
+
+/* =========================================
+   SMOOTH COLLAPSE & EXPANDED ROW UI
+   ========================================= */
+.smooth-collapse {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease-out;
+}
+
+.smooth-collapse.open {
+    grid-template-rows: 1fr;
+}
+
+.collapse-inner {
+    overflow: hidden;
+}
+
+/* Make the dropdown look like a sleek inset card */
+.details-box {
+    padding: 15px 20px;
+    margin: 0 15px 15px 15px;
+    /* Pulls it away from the edges */
+    background-color: var(--bg-color);
+    /* Slightly contrasts with the card background */
+    border-radius: var(--radius);
+    border-left: 4px solid var(--primary);
+    /* Cool blue accent line */
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 13.5px;
+}
+
+/* Stop details row from ruining table border */
+.details-td {
+    padding: 0 !important;
+    border-bottom: none !important;
+}
+
+/* Remove the border between the main row and details row when expanded */
+.main-row.expanded td {
+    border-bottom: none !important;
+}
