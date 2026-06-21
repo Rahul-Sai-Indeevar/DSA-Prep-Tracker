@@ -30,32 +30,41 @@
             <div class="motivational-area">
                 <h3 id="motivation-msg">Loading...</h3>
                 <p class="streak-text"><i class="fas fa-fire"></i> Streak: <span id="streak-msg">0</span> Days</p>
-                <!-- Added text to clarify daily requirement for weekly/monthly goals -->
                 <p id="daily-req-txt" style="font-size: 11px; color: var(--text-muted); margin-top: 5px;"></p>
             </div>
-
+        
             <div class="progress-area">
                 <div class="progress-bar-wrapper">
                     <label for="progress-bar">Progress:</label>
                     <progress id="progress-bar" value="0" max="100"></progress>
                     <span id="progress-text">0 / 0</span>
+                    <!-- NEW: Category Breakdown will go here -->
+                    <div id="goal-breakdown" class="goal-breakdown"></div>
                 </div>
                 <button id="edit-goal-btn" class="icon-btn" title="Edit Goal"><i class="fas fa-ellipsis-v"></i></button>
             </div>
         </div>
-
+        
         <div id="goal-edit-mode" class="goal-container" style="display: none;">
-            <div class="edit-inputs">
-                <label for="goal-type">Goal Type:</label>
-                <select id="goal-type">
-                    <option value="daily">Daily</option>
-                    <option value="weekly">Weekly</option>
-                    <option value="monthly">Monthly</option>
-                </select>
-                <label for="goal-target">Target Problems:</label>
-                <input type="number" id="goal-target" min="1" placeholder="e.g., 5">
+            <div class="edit-inputs" style="width: 100%; flex-direction: column; align-items: flex-start;">
+                <div style="display: flex; gap: 10px; width: 100%; align-items: center;">
+                    <label for="goal-type">Goal Type:</label>
+                    <select id="goal-type" style="flex: 1;">
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+                    </select>
+                </div>
+                <label style="margin-top: 10px; margin-bottom: 5px;">Targets per Category:</label>
+                <div class="target-grid">
+                    <div><span>DSA:</span> <input type="number" id="goal-dsa" min="0" value="0"></div>
+                    <div><span>SQL:</span> <input type="number" id="goal-sql" min="0" value="0"></div>
+                    <div><span>Pandas:</span> <input type="number" id="goal-pandas" min="0" value="0"></div>
+                    <div><span>ML:</span> <input type="number" id="goal-ml" min="0" value="0"></div>
+                </div>
             </div>
-            <button id="save-goal-btn" class="btn-success"><i class="fas fa-check"></i> Save Goal</button>
+            <button id="save-goal-btn" class="btn-success" style="width: 100%; margin-top: 10px;"><i class="fas fa-check"></i>
+                Save Goal</button>
         </div>
 
         <!-- INSIGHTS PANEL -->
@@ -65,13 +74,22 @@
                 <div class="insights-header">
                     <!-- Added Stats to Insights -->
                     <div class="insight-stats">
-                        <span class="stat-badge"><i class="fas fa-check-double"></i> Total Solved: <b
-                                id="insight-total">0</b></span>
-                        <span class="stat-badge"><i class="fas fa-stopwatch"></i> Avg Time: <b
-                                id="insight-avg">0m</b></span>
+                        <span class="stat-badge"><i class="fas fa-check-double"></i> Total Solved: <b id="insight-total">0</b></span>
+                        <span class="stat-badge"><i class="fas fa-stopwatch"></i> Avg Time: <b id="insight-avg">0m</b></span>
+                        <button id="ai-analyze-btn" class="btn-primary"
+                            style="background: linear-gradient(135deg, #8b5cf6, #d946ef); border: none; padding: 6px 15px; font-size: 13px;">
+                            <i class="fas fa-magic"></i> AI Cheat Sheet
+                        </button>
                     </div>
                     <!-- Added Chart Filters -->
                     <div class="chart-controls">
+                        <select id="chart-category">
+                            <option value="All">All Categories</option>
+                            <option value="DSA">DSA</option>
+                            <option value="SQL">SQL</option>
+                            <option value="Pandas">Pandas</option>
+                            <option value="Machine Learning">Machine Learning</option>
+                        </select>
                         <select id="chart-platform">
                             <option value="All">All Platforms</option>
                             <option value="LeetCode">LeetCode</option>
@@ -115,13 +133,19 @@
                 <!-- Hidden Input for Editing -->
                 <input type="hidden" id="edit-id" value="">
 
-                <div class="form-group row-group">
-                    <input type="url" id="problem-link" placeholder="Paste URL here...">
-                    <button type="button" id="autofill-btn">Auto-Fill</button>
+                <div class="form-group" style="display: flex; gap: 10px;">
+                    <input type="url" id="problem-link" placeholder="Paste URL here..." style="flex: 3;">
+                    <button type="button" id="autofill-btn" style="flex: 1;">Auto-Fill</button>
                 </div>
 
                 <div class="form-group row-group">
                     <input type="date" id="date" required>
+                    <select id="category">
+                        <option value="DSA">DSA</option>
+                        <option value="SQL">SQL</option>
+                        <option value="Pandas">Pandas</option>
+                        <option value="Machine Learning">Machine Learning</option>
+                    </select>
                     <select id="platform">
                         <option value="LeetCode">LeetCode</option>
                         <option value="Codeforces">Codeforces</option>
@@ -186,13 +210,13 @@
                 </div>
 
                 <div class="form-group row-group stopwatch-container">
-                    <span id="timer-display">00:00</span>
                     <button type="button" id="start-timer" class="action-btn" title="Start/Resume"><i
                             class="fas fa-play"></i></button>
                     <button type="button" id="pause-timer" class="action-btn" title="Pause"><i
                             class="fas fa-pause"></i></button>
                     <button type="button" id="save-timer" class="action-btn" title="Save Time"><i
                             class="fas fa-save"></i></button>
+                    <span id="timer-display">00:00</span>
                     <input type="number" id="time-taken" placeholder="Time (mins)">
                 </div>
 
@@ -240,75 +264,44 @@
                 <h2>Previously Logged</h2>
             </div>
             <!-- Advanced Filter Controls -->
-            <div class="table-controls" style="flex-direction: column;">
-                <!-- Row 1: Core Filters -->
-                <div style="display: flex; gap: 10px; width: 100%; flex-wrap: wrap;">
-                    <input type="text" id="search-filter" placeholder="Search problem name...">
-                    <select id="platform-filter">
-                        <option value="All">All Platforms</option>
-                        <option value="LeetCode">LeetCode</option>
-                        <option value="Codeforces">Codeforces</option>
-                        <option value="GeeksforGeeks">GeeksforGeeks</option>
-                        <option value="HackerRank">HackerRank</option>
-                        <option value="CodeChef">CodeChef</option>
-                        <option value="HackerEarth">HackerEarth</option>
-                    </select>
-                    <input type="text" id="diff-filter" placeholder="Diff/Rating (e.g. Hard, 800)">
-                    <select id="status-filter">
-                        <option value="All">All Statuses</option>
-                        <option value="🔴">🔴 Must Revise</option>
-                        <option value="🟡">🟡 Needs Work</option>
-                        <option value="🟢">🟢 Mastered</option>
-                    </select>
-                    <select id="sort-filter">
-                        <option value="date-desc">Newest First</option>
-                        <option value="date-asc">Oldest First</option>
-                        <option value="duration-desc">Duration: High to Low</option>
-                    </select>
-                </div>
-                <!-- Row 2: Multi-Tag Filter -->
-                <div style="display: flex; gap: 10px; width: 100%; align-items: center;">
-                    <select id="filter-tag-dropdown" style="max-width: 200px;">
-                        <option value="" disabled selected>Filter by tags...</option>
-                        <<option value="Array">Array</option>
-                        <option value="Backtracking">Backtracking</option>
-                        <option value="Binary Search">Binary Search</option>
-                        <option value="Bitmask">Bitmask</option>
-                        <option value="BFS">BFS</option>
-                        <option value="Bruteforce">Bruteforce</option>
-                        <option value="BST">BST</option>
-                        <option value="Combinatorics">Combinatorics</option>
-                        <option value="DFS">DFS</option>
-                        <option value="Divide&Conquer">Divide&Conquer</option>
-                        <option value="DP">DP</option>
-                        <option value="Graph">Graph</option>
-                        <option value="Hash Map">Hash Map</option>
-                        <option value="Heap">Heap</option>
-                        <option value="Linked-List">Linked-List</option>
-                        <option value="Math">Math</option>
-                        <option value="Matrix">Matrix</option>
-                        <option value="Memoization">Memoization</option>
-                        <option value="Monotonic-Stack">Monotonic-Stack</option>
-                        <option value="MST">MST</option>
-                        <option value="Number-theory">Number-theory</option>
-                        <option value="Prefix-Sum">Prefix-Sum</option>
-                        <option value="Queue">Queue</option>
-                        <option value="Recursion">Recursion</option>
-                        <option value="Segment-Tree">Segment-Tree</option>
-                        <option value="Shortest-Path">Shortest-Path</option>
-                        <option value="Sliding-window">Sliding-window</option>
-                        <option value="Sorting">Sorting</option>
-                        <option value="String">String</option>
-                        <option value="Stack">Stack</option>
-                        <option value="Suffix">Suffix</option>
-                        <option value="Tree">Tree</option>
-                        <option value="Trie">Trie</option>
-                        <option value="Two-Pointers">Two-Pointers</option>
-                        <option value="Union-Find">Union-Find</option>
-                    </select>
-                    <div id="active-filter-tags" class="selected-tags" style="margin-bottom: 0;"></div>
-                </div>
+            <div class="table-controls-grid">
+                <input type="text" id="search-filter" placeholder="Search problem name...">
+                <select id="category-filter">
+                    <option value="All">All Categories</option>
+                    <option value="DSA">DSA</option>
+                    <option value="SQL">SQL</option>
+                    <option value="Pandas">Pandas</option>
+                    <option value="Machine Learning">Machine Learning</option>
+                </select>
+                <select id="platform-filter">
+                    <option value="All">All Platforms</option>
+                    <option value="LeetCode">LeetCode</option>
+                    <option value="Codeforces">Codeforces</option>
+                    <option value="GeeksforGeeks">GeeksforGeeks</option>
+                </select>
+                <input type="text" id="diff-filter" placeholder="Diff/Rating">
+                <select id="status-filter">
+                    <option value="All">All Statuses</option>
+                    <option value="🔴">🔴 Must Revise</option>
+                    <option value="🟡">🟡 Needs Work</option>
+                    <option value="🟢">🟢 Mastered</option>
+                </select>
+                <select id="sort-filter">
+                    <option value="date-desc">Newest First</option>
+                    <option value="date-asc">Oldest First</option>
+                    <option value="duration-desc">Duration: High to Low</option>
+                </select>
+                <select id="filter-tag-dropdown">
+                    <option value="" disabled selected>Filter by tags...</option>
+                    <option value="Array">Array</option>
+                    <option value="Hash Map">Hash Map</option>
+                    <option value="Binary Search">Binary Search</option>
+                    <option value="DP">DP</option>
+                    <option value="Math">Math</option>
+                    <option value="Greedy">Greedy</option>
+                </select>
             </div>
+            <div id="active-filter-tags" class="selected-tags" style="margin-bottom: 15px;"></div>
             <div class="table-container">
                 <table id="history-table">
                     <thead>
@@ -328,7 +321,25 @@
             </div>
         </section>
     </div>
-
+    <!-- AI CHEAT SHEET MODAL -->
+    <div id="ai-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-robot" style="color: #8b5cf6;"></i> AI Analysis & Cheat Sheet</h3>
+                <button id="close-modal-btn" class="icon-btn"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div id="ai-loading" class="hidden" style="text-align: center; padding: 30px;">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 30px; color: var(--primary);"></i>
+                    <p style="color: var(--text-muted); margin-top: 10px;">Analyzing your weak points and generating cheat
+                        sheet...</p>
+                </div>
+                <div id="ai-response" style="white-space: pre-wrap; font-size: 14px; line-height: 1.6;">
+                    <!-- AI Text Will Go Here -->
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 

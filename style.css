@@ -231,12 +231,15 @@ hr {
 .row-group {
     flex-direction: row;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .row-group input,
 .row-group select,
 .row-group button {
-    flex: 1;
+    flex: 1 1 110px;
+    min-width: 110px;
 }
 
 input,
@@ -396,17 +399,32 @@ button:hover {
 }
 
 /* Table */
-.table-controls {
+/* =========================================
+   TABLE & FILTER GRIDS
+   ========================================= */
+.table-controls-grid {
+    display: grid;
+    /* This automatically creates equal-width columns that wrap perfectly! */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.table-controls-grid input,
+.table-controls-grid select {
+    width: 100%;
+    margin: 0;
+}
+
+/* Ensure the insights header wraps nicely too */
+.chart-controls {
     display: flex;
     gap: 10px;
-    margin-bottom: 15px;
     flex-wrap: wrap;
 }
 
-.table-controls input,
-.table-controls select {
-    flex: 1;
-    min-width: 150px;
+.chart-controls select {
+    flex: 1 1 120px;
 }
 
 .table-container {
@@ -501,4 +519,99 @@ a {
 /* Remove the border between the main row and details row when expanded */
 .main-row.expanded td {
     border-bottom: none !important;
+}
+
+/* =========================================
+   AI MODAL STYLES
+   ========================================= */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    width: 90%;
+    max-width: 700px;
+    max-height: 85vh;
+    border-radius: var(--radius);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.modal-body {
+    padding: 20px;
+    overflow-y: auto;
+    color: var(--text-main);
+}
+/* =========================================
+   MULTI-CATEGORY GOAL UI
+   ========================================= */
+.target-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+}
+
+.target-grid div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-color);
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+.target-grid span {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.target-grid input {
+    width: 60px;
+    padding: 4px;
+    margin: 0;
+    text-align: center;
+}
+
+.goal-breakdown {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: bold;
+    margin-top: 6px;
 }
