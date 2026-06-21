@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     let problems = []; // We will fetch this from the DB now!
-    const API_BASE_URL = 'http://localhost:8000/api';
+    const API_BASE_URL = 'https://dsa-prep-tracker-30zt.onrender.com/api';
 
     // Fetch data from Python Backend
     async function fetchProblems() {
