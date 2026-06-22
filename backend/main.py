@@ -44,12 +44,12 @@ Base.metadata.create_all(bind=engine)
 class ProblemBase(BaseModel):
     date: str
     timeOfDay: Optional[str] = ""
-    category: Optional[str] = "DSA"
-    platform: str
+    category: Optional[str] = "Other"
+    platform: Optional[str] = "Other"
     name: str
-    difficulty: str
-    tags: List[str]
-    time: str
+    difficulty: Optional[str] = "" 
+    tags: Optional[List[str]] = []
+    time: Optional[str] = ""
     status: str
     statusVal: str
     link: Optional[str] = ""

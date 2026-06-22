@@ -89,11 +89,19 @@
                             <option value="SQL">SQL</option>
                             <option value="Pandas">Pandas</option>
                             <option value="Machine Learning">Machine Learning</option>
+                            <option value="Other">Other</option>
                         </select>
                         <select id="chart-platform">
                             <option value="All">All Platforms</option>
                             <option value="LeetCode">LeetCode</option>
                             <option value="Codeforces">Codeforces</option>
+                            <option value="NeetCode">NeetCode</option>
+                            <option value="GeeksforGeeks">GeeksforGeeks</option>
+                            <option value="HackerRank">HackerRank</option>
+                            <option value="CodeChef">CodeChef</option>
+                            <option value="HackerEarth">HackerEarth</option>
+                            <option value="CSES">CSES</option>
+                            <option value="Other">Other</option>
                         </select>
                         <select id="chart-time">
                             <option value="all">All Time</option>
@@ -149,10 +157,13 @@
                     <select id="platform">
                         <option value="LeetCode">LeetCode</option>
                         <option value="Codeforces">Codeforces</option>
+                        <option value="NeetCode">NeetCode</option>
                         <option value="GeeksforGeeks">GeeksforGeeks</option>
                         <option value="HackerRank">HackerRank</option>
                         <option value="CodeChef">CodeChef</option>
                         <option value="HackerEarth">HackerEarth</option>
+                        <option value="CSES">CSES</option>
+                        <option value="Other">Other</option>
                     </select>
                 </div>
 
@@ -183,6 +194,7 @@
                         <option value="Divide&Conquer">Divide&Conquer</option>
                         <option value="DP">DP</option>
                         <option value="Graph">Graph</option>
+                        <option value="Greedy">Greedy</option>
                         <option value="Hash Map">Hash Map</option>
                         <option value="Heap">Heap</option>
                         <option value="Linked-List">Linked-List</option>
@@ -202,10 +214,12 @@
                         <option value="String">String</option>
                         <option value="Stack">Stack</option>
                         <option value="Suffix">Suffix</option>
+                        <option value="Topo-Sort">Topo-Sort</option>
                         <option value="Tree">Tree</option>
                         <option value="Trie">Trie</option>
                         <option value="Two-Pointers">Two-Pointers</option>
                         <option value="Union-Find">Union-Find</option>
+                        <option value="Other">Other</option>
                     </select>
                 </div>
 
@@ -272,12 +286,19 @@
                     <option value="SQL">SQL</option>
                     <option value="Pandas">Pandas</option>
                     <option value="Machine Learning">Machine Learning</option>
+                    <option value="Other">Other</option>
                 </select>
                 <select id="platform-filter">
                     <option value="All">All Platforms</option>
                     <option value="LeetCode">LeetCode</option>
                     <option value="Codeforces">Codeforces</option>
+                    <option value="NeetCode">NeetCode</option>
                     <option value="GeeksforGeeks">GeeksforGeeks</option>
+                    <option value="HackerRank">HackerRank</option>
+                    <option value="CodeChef">CodeChef</option>
+                    <option value="HackerEarth">HackerEarth</option>
+                    <option value="CSES">CSES</option>
+                    <option value="Other">Other</option>
                 </select>
                 <input type="text" id="diff-filter" placeholder="Diff/Rating">
                 <select id="status-filter">
@@ -294,11 +315,43 @@
                 <select id="filter-tag-dropdown">
                     <option value="" disabled selected>Filter by tags...</option>
                     <option value="Array">Array</option>
-                    <option value="Hash Map">Hash Map</option>
+                    <option value="Backtracking">Backtracking</option>
                     <option value="Binary Search">Binary Search</option>
+                    <option value="Bitmask">Bitmask</option>
+                    <option value="BFS">BFS</option>
+                    <option value="Bruteforce">Bruteforce</option>
+                    <option value="BST">BST</option>
+                    <option value="Combinatorics">Combinatorics</option>
+                    <option value="DFS">DFS</option>
+                    <option value="Divide&Conquer">Divide&Conquer</option>
                     <option value="DP">DP</option>
-                    <option value="Math">Math</option>
+                    <option value="Graph">Graph</option>
                     <option value="Greedy">Greedy</option>
+                    <option value="Hash Map">Hash Map</option>
+                    <option value="Heap">Heap</option>
+                    <option value="Linked-List">Linked-List</option>
+                    <option value="Math">Math</option>
+                    <option value="Matrix">Matrix</option>
+                    <option value="Memoization">Memoization</option>
+                    <option value="Monotonic-Stack">Monotonic-Stack</option>
+                    <option value="MST">MST</option>
+                    <option value="Number-theory">Number-theory</option>
+                    <option value="Prefix-Sum">Prefix-Sum</option>
+                    <option value="Queue">Queue</option>
+                    <option value="Recursion">Recursion</option>
+                    <option value="Segment-Tree">Segment-Tree</option>
+                    <option value="Shortest-Path">Shortest-Path</option>
+                    <option value="Sliding-window">Sliding-window</option>
+                    <option value="Sorting">Sorting</option>
+                    <option value="String">String</option>
+                    <option value="Stack">Stack</option>
+                    <option value="Suffix">Suffix</option>
+                    <option value="Topo-Sort">Topo-Sort</option>
+                    <option value="Tree">Tree</option>
+                    <option value="Trie">Trie</option>
+                    <option value="Two-Pointers">Two-Pointers</option>
+                    <option value="Union-Find">Union-Find</option>
+                    <option value="Other">Other</option>
                 </select>
             </div>
             <div id="active-filter-tags" class="selected-tags" style="margin-bottom: 15px;"></div>

@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         body.setAttribute('data-theme', newTheme);
         localStorage.setItem('dsa-tracker-theme', newTheme);
         themeToggleBtn.innerHTML = newTheme === 'light' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
-        if (window.updateCharts) window.updateCharts(JSON.parse(localStorage.getItem('dsa-tracker-history')) || []);
+        if (window.updateCharts) window.updateCharts(problems);
     });
 
     // 1. INIT & COLLAPSE UI
@@ -308,13 +308,17 @@ document.addEventListener('DOMContentLoaded', () => {
             cData.forEach(p => { const d = p.difficulty || 'Unrated'; counts[d] = (counts[d] || 0) + 1; });
             dLabels = Object.keys(counts).sort((a, b) => parseInt(a) - parseInt(b));
             dData = dLabels.map(l => counts[l]);
-            dColors = '#8b5cf6'; // CF Purple
-            document.getElementById('chart-type').value = 'bar'; // Auto force bar for ratings
+            dColors = '#8b5cf6';
+            document.getElementById('chart-type').value = 'bar'; 
         } else {
             let counts = { easy: 0, medium: 0, hard: 0, other: 0 };
             cData.forEach(p => {
-                const d = p.difficulty.toLowerCase();
-                if (d.includes('easy')) counts.easy++; else if (d.includes('medium')) counts.medium++; else if (d.includes('hard')) counts.hard++; else counts.other++;
+                // Fallback to empty string to prevent crashes
+                const d = (p.difficulty || '').toLowerCase();
+                if (d.includes('easy')) counts.easy++;
+                else if (d.includes('medium')) counts.medium++;
+                else if (d.includes('hard')) counts.hard++;
+                else counts.other++; // Empty difficulties will automatically be grouped into "Other"!
             });
             dLabels = ['Easy', 'Medium', 'Hard', 'Other']; dData = [counts.easy, counts.medium, counts.hard, counts.other];
             dColors = ['#10b981', '#f59e0b', '#ef4444', '#64748b'];
@@ -451,19 +455,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (filtered.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:30px; color:var(--text-muted);">No matching problems found.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:30px; color:var(--text-muted);">No matching problems found.</td></tr>`;
         } else {
             tbody.innerHTML = filtered.map(p => {
                 const link = p.link ? `<a href="${p.link}" target="_blank">${p.name}</a>` : `<strong>${p.name}</strong>`;
-                const tags = p.tags.map(t => `<span class="tag-pill">${t}</span>`).join('');
+                // If no tags, show a small gray dash
+                const tags = p.tags && p.tags.length > 0
+                    ? p.tags.map(t => `<span class="tag-pill">${t}</span>`).join('')
+                    : `<span style="color: var(--text-muted);">-</span>`;
+
+                // If no time, show a dash instead of 'm'
+                const displayTime = p.time ? `${p.time}m` : `<span style="color: var(--text-muted);">-</span>`;
+                // If no difficulty, show a dash
+                const displayDiff = p.difficulty ? p.difficulty : `<span style="color: var(--text-muted);">-</span>`;
+
                 return `
                 <tr class="main-row" onclick="toggleRow(this)">
                     <td>${p.date}<br><small style="color:var(--text-muted);">${p.timeOfDay || ''}</small></td>
-                    <td>
-                        <span style="font-weight:bold; color:var(--primary); font-size:12px;">${p.category || 'DSA'}</span><br>
-                        ${p.platform}
-                    </td><td>${link}</td><td>${p.difficulty}</td>
-                    <td><div class="selected-tags">${tags}</div></td><td>${p.time}m</td><td>${p.status}</td>
+                    <td><span style="font-weight:bold; color:var(--primary); font-size:12px;">${p.category || 'Other'}</span><br>${p.platform || 'Other'}</td>
+                    <td>${link}</td>
+                    <td>${displayDiff}</td>
+                    <td><div class="selected-tags" style="margin:0;">${tags}</div></td>
+                    <td>${displayTime}</td>
+                    <td>${getStatusIcon(p.status)}</td>
                     <td style="text-align: right;">
                         <button class="row-action-btn" title="Edit Problem" onclick="event.stopPropagation(); editProblem(${p.id})">
                             <i class="fas fa-ellipsis-v"></i>
@@ -474,7 +488,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td colspan="8" class="details-td">
                         <div class="smooth-collapse">
                             <div class="collapse-inner">
-                                <!-- NEW WRAPPER: details-box -->
                                 <div class="details-box">
                                     <div><strong>💡 Idea:</strong> ${p.initialIdea || '-'}</div>
                                     <div><strong>⚠️ Mistakes:</strong> ${p.missedPoints || '-'}</div>
